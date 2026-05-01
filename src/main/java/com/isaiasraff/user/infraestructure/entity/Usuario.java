@@ -1,10 +1,7 @@
 package com.isaiasraff.user.infraestructure.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,7 +16,8 @@ import java.util.List;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "usuario") // Caso nao indicar o nome da tabela, ele coloca default o nome da Classe
+@Table(name = "usuario")
+@Builder
 
 public class Usuario implements UserDetails {
     @Id
@@ -32,9 +30,14 @@ public class Usuario implements UserDetails {
     private String email;
     @Column (name = "senha")
     private String senha;
+
     @OneToMany (cascade = CascadeType.ALL)
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private List<Endereco> enderecos;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
+    private List<Telefone> telefones;
 
 
     @Override

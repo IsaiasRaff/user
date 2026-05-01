@@ -2,10 +2,7 @@ package com.isaiasraff.user.infraestructure.entity;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -16,6 +13,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "endereco")
+@Builder
 
 public class Endereco {
 
@@ -35,8 +33,5 @@ public class Endereco {
     @Column(name = "cep", length = 9)
     private String cep;
 
-    @OneToMany (cascade = CascadeType.ALL)
-    @JoinColumn (name = "usuario_id", referencedColumnName = "id")
-    private List<Telefone> telefones;
 
 }
