@@ -1,7 +1,7 @@
 package com.isaiasraff.user.infraestructure.repository;
 
-import com.isaiasrafael.authservice.infrastructure.entity.Endereco;
-import com.isaiasraff.user.business.dto.EnderecoDTO;
+
+import com.isaiasraff.user.infraestructure.entity.Endereco;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -14,13 +14,13 @@ import java.util.List;
 @Component
 
 public class UsuarioConverter {
-    public Usuario paraUsuario (UsuarioDTO usuarioDTO){
+    public Usuario paraUsuario(UsuarioDTO usuarioDTO) {
         return Usuario.builder()
                 .nome(usuarioDTO.getNome())
                 .email(usuarioDTO.getEmail())
                 .senha(usuarioDTO.getSenha())
                 .enderecos(paraListaEndereco(usuarioDTO.getEnderecos()))
-                .telefones (paraListaTelefone(usuarioDTO.getTelefones()))
+                .telefones(paraListaTelefone(usuarioDTO.getTelefones()))
                 .build();
     }
 
@@ -33,7 +33,7 @@ public class UsuarioConverter {
         return enderecos;
     }
 
-    public Endereco paraEndereco(EnderecoDTO enderecoDTO){
+    public Endereco paraEndereco(EnderecoDTO enderecoDTO) {
         return Endereco.builder()
                 .rua(enderecoDTO.getRua())
                 .numero(enderecoDTO.getNumero())
@@ -52,7 +52,7 @@ public class UsuarioConverter {
         return telefones;
     }
 
-    public Telefone paraTelefone (TelefoneDTO telefoneDTO) {
+    public Telefone paraTelefone(TelefoneDTO telefoneDTO) {
         return Telefone.builder()
                 .ddd(telefoneDTO.getDdd())
                 .numero(telefoneDTO.getNumero())
@@ -60,50 +60,50 @@ public class UsuarioConverter {
     }
 
 
-    public UsuarioDTO paraUsuarioDTO (Usuario usuario){
-    return UsuarioDTO.builder()
-            .nome(usuario.getNome())
-            .email(usuario.getEmail())
-            .senha(usuario.getSenha())
-            .enderecos(paraListaEnderecoDTO(usuario.getEnderecos()))
-            .telefones (paraListaTelefoneDTO(usuario.getTelefones()))
-            .build();
-}
-
-
-public List<EnderecoDTO> paraListaEnderecoDTO(List<Endereco> enderecoDTOS) {
-    List<EnderecoDTO> enderecos = new ArrayList<>();
-    for (Endereco enderecoDTO : enderecoDTOS) {
-        enderecos.add(paraEnderecoDTO(enderecoDTO));
+    public UsuarioDTO paraUsuarioDTO(Usuario usuario) {
+        return UsuarioDTO.builder()
+                .nome(usuario.getNome())
+                .email(usuario.getEmail())
+                .senha(usuario.getSenha())
+                .enderecos(paraListaEnderecoDTO(usuario.getEnderecos()))
+                .telefones(paraListaTelefoneDTO(usuario.getTelefones()))
+                .build();
     }
-    return enderecos;
-}
 
-public EnderecoDTO paraEnderecoDTO(Endereco enderecoDTO){
-    return EnderecoDTO.builder()
-            .rua(enderecoDTO.getRua())
-            .numero(enderecoDTO.getNumero())
-            .cidade(enderecoDTO.getCidade())
-            .complemento(enderecoDTO.getComplemento())
-            .cep(enderecoDTO.getCep())
-            .estado(enderecoDTO.getEstado())
-            .build();
-}
 
-public List<TelefoneDTO> paraListaTelefoneDTO(List<Telefone> telefoneDTOS) {
-    List<TelefoneDTO> telefones = new ArrayList<>();
-    for (Telefone telefoneDTO : telefoneDTOS) {
-        telefones.add(paraTelefoneDTO(telefoneDTO));
+    public List<EnderecoDTO> paraListaEnderecoDTO(List<Endereco> enderecoDTOS) {
+        List<EnderecoDTO> enderecos = new ArrayList<>();
+        for (Endereco enderecoDTO : enderecoDTOS) {
+            enderecos.add(paraEnderecoDTO(enderecoDTO));
+        }
+        return enderecos;
     }
-    return telefones;
-}
 
-public TelefoneDTO paraTelefoneDTO (Telefone telefoneDTO) {
-    return TelefoneDTO.builder()
-            .ddd(telefoneDTO.getDdd())
-            .numero(telefoneDTO.getNumero())
-            .build();
-}
+    public EnderecoDTO paraEnderecoDTO(Endereco enderecoDTO) {
+        return EnderecoDTO.builder()
+                .rua(enderecoDTO.getRua())
+                .numero(enderecoDTO.getNumero())
+                .cidade(enderecoDTO.getCidade())
+                .complemento(enderecoDTO.getComplemento())
+                .cep(enderecoDTO.getCep())
+                .estado(enderecoDTO.getEstado())
+                .build();
+    }
+
+    public List<TelefoneDTO> paraListaTelefoneDTO(List<Telefone> telefoneDTOS) {
+        List<TelefoneDTO> telefones = new ArrayList<>();
+        for (Telefone telefoneDTO : telefoneDTOS) {
+            telefones.add(paraTelefoneDTO(telefoneDTO));
+        }
+        return telefones;
+    }
+
+    public TelefoneDTO paraTelefoneDTO(Telefone telefoneDTO) {
+        return TelefoneDTO.builder()
+                .ddd(telefoneDTO.getDdd())
+                .numero(telefoneDTO.getNumero())
+                .build();
+    }
 
 
 }
