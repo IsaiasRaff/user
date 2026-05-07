@@ -6,6 +6,7 @@ import com.isaiasraff.user.infraestructure.entity.Usuario;
 import com.isaiasraff.user.infraestructure.exceptions.ConflictExceptions;
 import com.isaiasraff.user.infraestructure.exceptions.ResourceNotFoundException;
 import com.isaiasraff.user.infraestructure.repository.UsuarioRepository;
+import com.isaiasraff.user.infraestructure.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final UsuarioConverter usuarioConverter;
     private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
 
     public UsuarioDTO salvaUsuario(UsuarioDTO usuarioDTO) {
         emailExiste(usuarioDTO.getEmail());
@@ -49,6 +51,20 @@ public class UsuarioService {
 
     public void deletaUsuarioEmail(String email) {
         usuarioRepository.deleteByEmail(email);
+    }
+
+    public UsuarioDTO atualizaDadosUsuario(String token, UsuarioDTO dto) {
+        String email = jwtUtil.extractUsername(token.substring(7));
+
+        dto.setSenha(dto.getSenha() != null ? passwordEncoder.encode(dto.getSenha()) : null);
+
+        Usuario usuarioEntity = (Usuario) usuarioRepository.findByEmail(email).orElseThrow(
+                () -> new ResourceNotFoundException("Email não localizado"));
+
+        Usuario usuario = usuarioConverter.updateUsuario(dto, usuarioEntity);
+
+        return usuarioConverter.paraUsuarioDTO(usuarioRepository.save(usuario));
+
     }
 
 
