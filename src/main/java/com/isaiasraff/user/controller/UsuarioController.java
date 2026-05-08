@@ -1,6 +1,8 @@
 package com.isaiasraff.user.controller;
 
 import com.isaiasraff.user.business.UsuarioService;
+import com.isaiasraff.user.business.dto.EnderecoDTO;
+import com.isaiasraff.user.business.dto.TelefoneDTO;
 import com.isaiasraff.user.business.dto.UsuarioDTO;
 import com.isaiasraff.user.infraestructure.entity.Usuario;
 import com.isaiasraff.user.infraestructure.security.JwtUtil;
@@ -37,7 +39,7 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public ResponseEntity<Usuario> buscaUsuarioEmail(@RequestParam("email") String email) {
+    public ResponseEntity<UsuarioDTO> buscaUsuarioEmail(@RequestParam("email") String email) {
         return ResponseEntity.ok(usuarioService.buscarUsuarioEmail(email));
     }
 
@@ -46,4 +48,23 @@ public class UsuarioController {
         usuarioService.deletaUsuarioEmail(email);
         return ResponseEntity.ok().build();
     }
+
+    @PutMapping
+    public ResponseEntity<UsuarioDTO> atualizaDadosUsuario(@RequestBody UsuarioDTO dto,
+                                                           @RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(usuarioService.atualizaDadosUsuario(token, dto));
+    }
+
+    @PutMapping("/endereco")
+    public ResponseEntity<EnderecoDTO> atualizaEndereco (@RequestBody EnderecoDTO dto,
+                                                         @RequestParam ("id") Long id){
+        return ResponseEntity.ok(usuarioService.atualizaEndereco(id, dto));
+    }
+
+    @PutMapping("/telefone")
+    public ResponseEntity<TelefoneDTO> atualizaTelefone (@RequestBody TelefoneDTO dto,
+                                                         @RequestParam ("id") Long id){
+        return ResponseEntity.ok(usuarioService.atualizaTelefone(id, dto));
+    }
+
 }
