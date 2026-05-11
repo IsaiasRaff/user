@@ -1,10 +1,7 @@
 package com.isaiasraff.user.infraestructure.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
@@ -13,6 +10,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "telefone")
+@Builder
 
 public class Telefone {
     @Id
@@ -21,9 +19,10 @@ public class Telefone {
 
     @Column(name = "ddd", length = 3)
     private String ddd;
-
     @Column(name = "numero", length = 10)
     private String numero;
+    @Column(name = "usuario_id")
+    private Long usuario_id;
 
 
 }

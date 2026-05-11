@@ -13,7 +13,8 @@ import java.util.Date;
 public class JwtUtil {
 
     private final SecretKey secretKey;
-    public JwtUtil () {
+
+    public JwtUtil() {
         this.secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     }
 
@@ -36,6 +37,7 @@ public class JwtUtil {
                 .getBody();
     }
 
+    // Extrai o email do token
     public String extractUsername(String token) {
         return extractClaims(token).getSubject();
     }
